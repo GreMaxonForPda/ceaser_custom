@@ -1,9 +1,11 @@
+# набор символов для проверок и прочего
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 alphabet_upper = alphabet.upper()
 other = "1!2@3#4$5%6^7&8*9(0)-_+=~|,./"
 
 all_sym = alphabet + alphabet_upper + other
 
+# основная функция, ради которой и задумалось все
 def encrypt(key: str, text: list):
     start_text = 0
     start_key = 0
@@ -20,6 +22,7 @@ def encrypt(key: str, text: list):
 
     return(new_text)
 
+# тест дешифровки, в будущем отдельная функция
 def decrypt(key: str, text: list):
     start_text = 0
     start_key = 0
@@ -37,6 +40,7 @@ def decrypt(key: str, text: list):
     return(new_text)
 
 
+# немного тестов
 first = encrypt(key="79598499640", text=("password"))
 second = decrypt(key="79598499640", text="".join(f'{some}' for some in first))
 
