@@ -1,8 +1,9 @@
-import json as js
+from json import load as js_load
+from ast import literal_eval as l_eval
 
 
 with open("data.json", "r", encoding="utf-8") as f:
-    data = js.load(f)
+    data = js_load(f)
 
 full_alphabet = data["alphabet"] + data["other"]
 
@@ -11,7 +12,6 @@ full_alphabet = data["alphabet"] + data["other"]
 def encrypt(key: str, text: list, symbols: str):
     new_text = list()
     key_len = len(key)
-
     for i, word in enumerate(text):
         key_char = key[i % key_len]
         # сдвиг по позиции ключа в списке всех символов, иначе сдвиг равен 7
@@ -32,8 +32,10 @@ def encrypt(key: str, text: list, symbols: str):
     return new_text
 
 
-# немного тестов
-test_text = ("password", "strong password", "strong_password")
-test_key = "admin0"
+with open("password.txt", "r", encoding="utf-8") as f:
+    test_text = [l_eval(line.strip()) for line in f if line.strip()]
 
-print(encrypt(key=test_key, text=test_text, symbols=full_alphabet))
+test_key = "admin0"
+for i_text in test_text:
+    output = encrypt(key=test_key, text=i_text, symbols=full_alphabet)
+    print(output)
